@@ -85,7 +85,7 @@ class HydroSpider(BaseSpider):
             l.add_value('federal_station_number', federal_station_number)
             yield l.load_item()
 
-            # and fetch any data table URL available 
+            # and fetch any data table URL available
             data_table_url = self.get_data_table_url(hxs)
             if data_table_url:
                 yield Request(data_table_url, callback=self.parse)
@@ -100,7 +100,7 @@ class HydroSpider(BaseSpider):
                 l.add_value('station_id', station_id)
                 l.add_value('date', stat[0])
                 l.add_value('time', stat[1])
-                l.add_value('hack', stat[0] + stat[1])
+                l.add_value('hack', station_id + stat[0] + stat[1])
                 l.add_value('water_flow', stat[2])
                 yield l.load_item()
             
