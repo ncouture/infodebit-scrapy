@@ -14,7 +14,7 @@ from scrapy.contrib.loader import ItemLoader
 class StationHydrique(Item):
     entry_type = Field()
     station_id = Field()
-    hack = Field()  #FIXME: force uniqueness on two keys in mongodb
+    hack = Field()
     name = Field()
     description = Field()
     municipality = Field()
@@ -32,6 +32,7 @@ class HistoricalWaterFlow(Item):
     station_id = Field()
     date = Field()
     time = Field()
+    hack = Field()
     water_flow = Field()
 
 
@@ -72,7 +73,7 @@ class HydroSpider(BaseSpider):
             l = ItemLoader(item=StationHydrique())
             l.add_value('entry_type', 'station')
             l.add_value('station_id', station_id)
-            l.add_value('hack', 'station' + station_id)  #FIXME
+            l.add_value('hack', 'station' + station_id)
             l.add_value('name', name)
             l.add_value('description', description)
             l.add_value('municipality', municipality)
@@ -99,6 +100,7 @@ class HydroSpider(BaseSpider):
                 l.add_value('station_id', station_id)
                 l.add_value('date', stat[0])
                 l.add_value('time', stat[1])
+                l.add_value('hack', stat[0] + stat[1])
                 l.add_value('water_flow', stat[2])
                 yield l.load_item()
             

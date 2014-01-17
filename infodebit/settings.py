@@ -9,4 +9,4 @@ ITEM_PIPELINES = {
 MONGODB_URI = 'mongodb://localhost:27017'
 MONGODB_DATABASE = 'hydro'
 MONGODB_COLLECTION = 'infodebit'
-#MONGODB_UNIQUE_KEY = ['entry_type', 'station_id']
+MONGODB_UNIQUE_KEY = 'hack'
