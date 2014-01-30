@@ -1,11 +1,8 @@
 #!/bin/bash
 # Executes a scrapy spider available in a virtualenv
 #
-# randomsleep=(0=false/1=true)
-#   sleeps randomly up to $sleeplimit before executing the spider
-#
 # sleeplimit
-#   random sleep limit in seconds
+#   random sleep limit in seconds or empty not to sleep
 #
 # virtualenv
 #   absolute path to the spider's virtualenv
@@ -21,7 +18,6 @@
 
 #set -x
 
-randomsleep="1"
 sleeplimit="18000"
 virtualenv="/home/self/dev/info-debit-virtualenv"
 scrapyroot="/home/self/dev/info-debit-virtualenv/infodebit-scrapy"
@@ -40,7 +36,7 @@ function error {
 }
 
 function randomsleep {
-    if [[ "$randomsleep" -eq 1 ]]; then
+    if [[ ! -z "$sleeplimit" ]]; then
 	random_sleep="$(($RANDOM%$sleeplimit))"
 	minutes=`echo "$random_sleep / 60" | bc`
 	log "sleeping for $random_sleep seconds ($minutes minutes)..."
