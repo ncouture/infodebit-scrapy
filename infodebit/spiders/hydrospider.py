@@ -8,7 +8,7 @@ from scrapy.item import Item, Field
 from scrapy.http import Request, Response
 from scrapy.spider import BaseSpider
 from scrapy.selector import HtmlXPathSelector
-from scrapy.contrib.loader import ItemLoader
+from scrapy.contrib.loader import ItemLoader, processor
 
 
 class StationHydrique(Item):
@@ -71,6 +71,7 @@ class HydroSpider(BaseSpider):
 
             # update our items,
             l = ItemLoader(item=StationHydrique())
+            l.default_output_processor = processor.TakeFirst()
             l.add_value('entry_type', 'station')
             l.add_value('station_id', station_id)
             l.add_value('hack', 'station' + station_id)
@@ -96,6 +97,7 @@ class HydroSpider(BaseSpider):
             stats = self.get_data_table_statistics(hxs)
             for stat in stats:
                 l = ItemLoader(item=HistoricalWaterFlow())
+                l.default_output_processor = processor.TakeFirst()
                 l.add_value('entry_type', 'historical')
                 l.add_value('station_id', station_id)
                 l.add_value('date', stat[0])
