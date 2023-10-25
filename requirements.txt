@@ -1,6 +1,6 @@
 SQLAlchemy==0.9.1
 Scrapy==0.20.2
-Twisted==13.2.0
+Twisted==23.8.0
 cssselect==0.9.1
 lxml==3.2.5
 pyOpenSSL==0.13.1
